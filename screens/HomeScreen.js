@@ -9,6 +9,10 @@ function HomeScreen({ navigation }) {
         title="Go to ProfileScreen"
         onPress={() => navigation.navigate('ProfileStack')}
       />
+       <Button
+        title="Go to ReduxScreen"
+        onPress={() => navigation.navigate('ReduxScreen')}
+      />
       <Button
         title="Go to HomeScreen"
         onPress={() => navigation.navigate('Home')}

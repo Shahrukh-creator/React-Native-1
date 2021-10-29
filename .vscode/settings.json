@@ -1,6 +1,11 @@
 {
     "cSpell.words": [
-        "getdata"
+        "getdata",
+        "limegreen",
+        "setemail",
+        "setfirstname",
+        "setlastname",
+        "setpassword"
     ],
     "cSpell.ignoreWords": [
         "beacuse"

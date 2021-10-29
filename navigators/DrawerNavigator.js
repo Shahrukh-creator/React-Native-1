@@ -8,6 +8,7 @@ import ContactScreen from '../screens/ContactScreen';
 // import ProfileScreen1 from '../screens/ProfileScreen1';
 import ProfileScreen2 from '../screens/ProfileScreen2';
 import ProfileScreen3 from '../screens/ProfileScreen3';
+import TabNavigator from './TabNavigator';
 
 import LogOut from '../screens/LogOut'
 
@@ -36,30 +37,6 @@ export default function DrawerNavigator() {
         ////beacuse inside drawer, stacks are not updating during fetching,
         ////only stack can update in stack.. */}
 
-      {/* <Drawer.Screen name="Profile" component={Profile}  options={{
-          headerTitleAlign: 'center',
-          title: 'Profile', //Set Header Title
-          headerStyle: {
-            backgroundColor: '#307ecc', //Set Header color
-          },
-          headerTintColor: '#fff', //Set Header text color
-          headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
-          },
-        }}/>
-
-
-<Drawer.Screen name="ProfileScreen1" component={ProfileScreen1}  options={{
-          headerTitleAlign: 'center',
-          title: 'ProfileScreen 1', //Set Header Title
-          headerStyle: {
-            backgroundColor: '#307ecc', //Set Header color
-          },
-          headerTintColor: '#fff', //Set Header text color
-          headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
-          },
-        }}/> */}
 
         <Drawer.Screen name="ProfileScreen2" component={ProfileScreen2}  options={{
           headerTitleAlign: 'center',
@@ -96,6 +73,18 @@ export default function DrawerNavigator() {
             fontWeight: 'bold', //Set Header text style
           },
         }}/>
+{/* 
+         <Drawer.Screen name="TabNavigator" component={TabNavigator}  options={{
+          headerTitleAlign: 'center',
+          title: 'TabNavigator', //Set Header Title
+          headerStyle: {
+            backgroundColor: '#307ecc', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        }}/> */}
 
         <Drawer.Screen name="LogOut" component={LogOut}  options={{
           headerTitleAlign: 'center',
