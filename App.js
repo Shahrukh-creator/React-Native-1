@@ -13,7 +13,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="AuthStack">
-      
+      {/* //Hello */}
         <Stack.Screen
           name="AuthStack"
           component={AuthStack}
