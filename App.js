@@ -20,6 +20,7 @@ export default class App extends React.Component{
        
         <Stack.Screen
           name="AuthStack"
+          // Hello World
           component={AuthStack}
           options={{headerShown: false}}
         />
