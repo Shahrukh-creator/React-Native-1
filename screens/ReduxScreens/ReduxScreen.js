@@ -38,7 +38,10 @@ class ReduxScreen extends Component {
 
     render() {
         return (
-            <Provider store={store}>
+            // Calling Component is wrapped inside
+            ///  provider to provide easy access of store states 
+            /// to all  called multiple components   
+            <Provider store={store}> 
                 <ReducerApp />
             </Provider>
         );
