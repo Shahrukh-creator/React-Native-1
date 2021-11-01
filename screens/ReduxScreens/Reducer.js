@@ -47,7 +47,8 @@ function mapDispatchToProps(dispatch) {
     resetCounter: () => dispatch({type: 'RESET_COUNTER'}),
   };
 }
-
+///mapStateToProps and mapDispatchToProps 
+//are connected with ReducerApp to use the props inside him
 export default connect(mapStateToProps, mapDispatchToProps)(ReducerApp);
 
 const styles = StyleSheet.create({

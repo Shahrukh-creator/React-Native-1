@@ -20,6 +20,7 @@ import { Provider } from 'react-redux'
 const initialState = {
     counter: 0
 }
+/// action is dispatched into the reducer as a parameter to apply changes to state ///
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'INCREASE_COUNTER':
