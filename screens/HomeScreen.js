@@ -13,6 +13,10 @@ function HomeScreen({ navigation }) {
         title="Go to ReduxScreen"
         onPress={() => navigation.navigate('ReduxScreen')}
       />
+       <Button
+        title="Go to MapView"
+        onPress={() => navigation.navigate('MapView')}
+      />
       <Button
         title="Go to HomeScreen"
         onPress={() => navigation.navigate('Home')}

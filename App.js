@@ -7,6 +7,8 @@ import AuthStack from './screens/AuthScreens/AuthStack/AuthStack';
 import ProfileStackNavigator from './navigators/ProfileStackNavigator';
 // import TabNavigator from './navigators/TabNavigator';
 import ReduxScreen from './screens/ReduxScreens/ReduxScreen';
+import MapView from './screens/MapViewScreen/MapView';
+
 
 LogBox.ignoreLogs(['Reanimated 2']);
 
@@ -45,6 +47,24 @@ function App() {
             headerShown:true,
           headerTitleAlign: 'center',
           title: 'ReduxScreen', //Set Header Title
+          headerStyle: {
+            backgroundColor: '#307ecc', //Set Header color
+          },
+         
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        }}
+
+        />
+        <Stack.Screen
+          name="MapView"
+          component={MapView}
+          options={{
+            headerShown:true,
+          headerTitleAlign: 'center',
+          title: 'MapView', //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },

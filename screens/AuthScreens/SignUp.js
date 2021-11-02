@@ -96,8 +96,11 @@ const styles = StyleSheet.create({
     width: 300,
     height: 44,
     padding: 10,
-    borderWidth: 3,
-    borderColor: 'black',
+    borderRadius: 10,
+    borderColor: "black",
+    borderStyle: "solid",
+    borderWidth: 2,
+    backgroundColor:"pink",
     marginBottom: 30,
   },
   logo: {
