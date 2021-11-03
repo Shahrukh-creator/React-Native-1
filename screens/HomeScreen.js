@@ -14,7 +14,6 @@ class HomeScreen extends React.Component {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 100,
         }}>
         <Card>
           <Card.Title>ProfileScreen</Card.Title>
