@@ -70,7 +70,7 @@ const markers = [
 
 import React, {Component} from 'react';
 // Import required components
-import {SafeAreaView, StyleSheet, View, Image} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Image, alert} from 'react-native';
 // import { useTheme } from '@react-navigation/native';
 // Import Map and Marker
 import MapView, {Marker} from 'react-native-maps';
@@ -92,8 +92,10 @@ export default class MapView1 extends Component {
             {markers.map((item, idx) => {
               return (
                 <MapView.Marker
+                  draggable
                   style={styles.markerStyle}
                   key={idx}
+                  onDragEnd={e => alert(JSON.stringify(e.nativeEvent.item.coordinate))}
                   coordinate={item.coordinate}
                   title={item.title}
                   description={item.description}>
