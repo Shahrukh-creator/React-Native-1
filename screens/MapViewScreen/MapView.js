@@ -93,9 +93,11 @@ const MapView1 = () => {
           {markers.map((item, idx) => {
             return (
               <MapView.Marker
+              draggable
               style={styles.markerStyle}
                 key={idx}
                 coordinate={item.coordinate}
+                onDragEnd={e => alert(JSON.stringify(e.nativeEvent.item.coordinate))}
                 title={item.title}
                 description={item.description}>
                 <View style={styles.markerViewStyle}>
