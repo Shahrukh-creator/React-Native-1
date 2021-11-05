@@ -10,7 +10,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-
+import auth from '@react-native-firebase/auth';
 
 export default class SignIn extends React.Component {
 
@@ -20,6 +20,8 @@ export default class SignIn extends React.Component {
     this.state = {
       email: '',
       password: '',
+      emailError: true,
+      passwordError: true,
     };
     
   }
@@ -28,10 +30,38 @@ export default class SignIn extends React.Component {
     if (!this.state.email || !this.state.password) {
       alert('Details are Incomplete');
     } else {
+      try {
+        auth()
+          .signInWithEmailAndPassword(this.state.email, this.state.password)
+          .then(() => {
+            console.log('User signed In!');
+            this.props.navigation.navigate('Drawer');
+            // Alert.alert('Success ✅', 'Logged successfully');
+          });
+      } catch (error) {
+        alert(error);
+      }
       this.setState({email: '', password: ''});
-      this.props.navigation.navigate('Drawer');
+      
     }
   };
+
+  
+  validateEmail() {
+    let regexp = new RegExp(
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    this.setState({ emailError: !regexp.test(this.state.email) });
+  }
+
+  validatePassword() {
+    if (this.state.password.length > 6) {
+      this.setState({ passwordError: false });
+      return;
+    }
+    this.setState({ passwordError: true });
+    return;
+  }
 
 render()
 {
@@ -44,17 +74,31 @@ render()
 
       <TextInput
         value={this.state.email}
-        onChangeText={(text) => this.setState({email:text})}
+        onChangeText={(text) =>   
+        { 
+          this.validateEmail();
+          this.setState({email:text});
+        }}
         placeholder={'Email'}
         style={styles.input}
       />
+       {this.state.emailError ? (
+          <Text style={styles.error}>Invalid email</Text>
+        ) : null}
       <TextInput
         value={this.state.password}
-        onChangeText={(text) => this.setState({password:text})}
+        onChangeText={(text) =>  
+        { 
+          this.validatePassword();
+          this.setState({password:text});
+        }}
         placeholder={'Password'}
         secureTextEntry={true}
         style={styles.input}
       />
+      {this.state.passwordError ? (
+          <Text style={styles.error}>Minimum length is 6</Text>
+        ) : null}
       <TouchableOpacity
         style={styles.button}
         activeOpacity={0.5}
@@ -117,5 +161,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
+  },
+  error: {
+    fontSize: 15,
+    paddingBottom: 1,
+    marginTop: -30,
+    color: 'red',
+    borderBottomColor: "#ff0000",
+    borderBottomWidth: 1,
   },
 });

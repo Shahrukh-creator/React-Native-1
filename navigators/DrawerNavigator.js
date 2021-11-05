@@ -7,6 +7,7 @@ import ContactScreen from '../screens/ContactScreen';
 import LogOut from '../screens/LogOut'
 import ProfileScreen2 from '../screens/ProfileScreen2';
 import ProfileScreen3 from '../screens/ProfileScreen3';
+import auth, {firebase} from '@react-native-firebase/auth';
 
 const Drawer = createDrawerNavigator();
 
@@ -27,6 +28,19 @@ export default class DrawerNavigator extends React.Component {
           headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
           },
+          headerRight: () => (
+            <Button
+              onPress={() => 
+                 firebase.auth()
+                   .signOut()
+                 .then(() => {
+                     console.log('User signed out!');
+                      this.props.navigation.navigate('AuthStack');
+                                })
+                      }
+              title="LogOut"
+            />
+          ),
         }}
         />
       {/* <Drawer.Screen name="Profile" component={Profile}  options={{

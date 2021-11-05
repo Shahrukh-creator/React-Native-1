@@ -21,10 +21,48 @@ constructor()
       email: '',
       password: '',
       firstname:'',
-      lastname:''
+      lastname:'',
+      firstnameError: true,
+      lastnameError: true,
+      emailError: true,
+      passwordError: true,
     };
   }
   
+    validatefirstname() {
+    if (this.state.firstname.length > 3) {
+      this.setState({ firstnameError: false });
+      return;
+    }
+    this.setState({ firstnameError: true });
+    return;
+  }
+
+  validatelastname() {
+    if (this.state.lastname.length > 3) {
+      this.setState({ lastnameError: false });
+      return;
+    }
+    this.setState({ lastnameError: true });
+    return;
+  }
+
+
+  validateEmail() {
+    let regexp = new RegExp(
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    this.setState({ emailError: !regexp.test(this.state.email) });
+  }
+
+  validatePassword() {
+    if (this.state.password.length > 6) {
+      this.setState({ passwordError: false });
+      return;
+    }
+    this.setState({ passwordError: true });
+    return;
+  }
 
   handleSubmitPress(){
 
@@ -34,9 +72,27 @@ constructor()
         alert('Details are Incomplete');
     } else
     {
+       auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(() => {
+          console.log('User account created!');
+          this.props.navigation.navigate('SignIn');
+          // Alert.alert('Success ✅', 'Account created successfully');
+        })
+        .catch(error => {
+          if (error.code === 'auth/email-already-in-use') {
+            console.log('That email address is already in use!');
+          }
+
+          if (error.code === 'auth/invalid-email') {
+            console.log('That email address is invalid!');
+          }
+
+          console.error(error);
+        });
          this.setState({email: '', password: '',firstname:'',
       lastname:''});
-      this.props.navigation.navigate('SignIn');
+      
     }
   };
 
@@ -48,29 +104,58 @@ render()
       <Image style={styles.logo} source={require('../../assets/img2.png')} />
       <TextInput
         value={this.state.firstname}
-        onChangeText={(text) => this.setState({firstname:text})}
+        onChangeText={(text) => { 
+          this.validatefirstname();
+          this.setState({firstname:text});
+          }}
         placeholder={'Firstname'}
         style={styles.input}
       />
+      {this.state.firstnameError ? (
+          <Text style={styles.error}>minimum length : 3</Text>
+        ) : null}
       <TextInput
         value={this.state.lastname}
-        onChangeText={(text) => this.setState({lastname:text})}
+        onChangeText={(text) =>
+        { 
+          this.validatelastname();
+          this.setState({lastname:text});
+        }}
         placeholder={'Lastname'}
         style={styles.input}
       />
+      {this.state.lastnameError ? (
+          <Text style={styles.error}>minimum length : 3</Text>
+        ) : null}
       <TextInput
         value={this.state.email}
-        onChangeText={(text) => this.setState({email:text})}
+        onChangeText={(text) =>
+        { 
+          this.validateEmail();
+          this.setState({email:text});
+        }}
         placeholder={'Email'}
         style={styles.input}
       />
+        {this.state.emailError ? (
+          <Text style={styles.error}>Invalid email</Text>
+        ) : null}
+
       <TextInput
         value={this.state.password}
-        onChangeText={(text) => this.setState({password:text})}
+        onChangeText={(text) =>
+        { 
+          this.validatePassword();
+          this.setState({password:text});
+        }}
         placeholder={'Password'}
         secureTextEntry={true}
         style={styles.input}
       />
+      {this.state.passwordError ? (
+          <Text style={styles.error}>Minimum length is 6</Text>
+        ) : null}
+
       <TouchableOpacity
         style={styles.button}
         activeOpacity={0.5}
@@ -133,5 +218,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
+  },
+  error: {
+    fontSize: 15,
+    paddingBottom: 1,
+    marginTop: -30,
+    color: 'red',
+    borderBottomColor: "#ff0000",
+    borderBottomWidth: 1,
   },
 });
