@@ -7,7 +7,7 @@ import AuthStack from './screens/AuthScreens/AuthStack/AuthStack';
 import ProfileStackNavigator from './navigators/ProfileStackNavigator';
 // import TabNavigator from './navigators/TabNavigator';
 import ReduxScreen from './screens/ReduxScreens/ReduxScreen';
-import MapView from './screens/MapViewScreen/MapView';
+import MapView1 from './screens/MapViewScreen/MapView';
 
 
 LogBox.ignoreLogs(['Reanimated 2']);
@@ -60,7 +60,7 @@ function App() {
         />
         <Stack.Screen
           name="MapView"
-          component={MapView}
+          component={MapView1}
           options={{
             headerShown:true,
           headerTitleAlign: 'center',

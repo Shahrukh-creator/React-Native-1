@@ -11,38 +11,32 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useState} from 'react';
+import auth from '@react-native-firebase/auth';
 
 export default function SignIn({navigation}) {
   const [email, setemail] = React.useState('');
   const [password, setpassword] = React.useState('');
 
   const handleSubmitPress = () => {
-
     if (!email || !password) {
-        alert('Details are Incomplete');
-      
-    }
-    else
-    {
-        setemail('');
-        setpassword('');
-        navigation.navigate('Drawer');
+      alert('Details are Incomplete');
+    } else {
+      try {
+        auth()
+          .signInWithEmailAndPassword(email, password)
+          .then(() => {
+            console.log('User signed In!');
+            navigation.navigate('Drawer');
+            // Alert.alert('Success ✅', 'Logged successfully');
+          });
+      } catch (error) {
+        alert(error);
+      }
+
+      setemail('');
+      setpassword('');
     }
   };
-
-  //   onLogin = () => {
-  //     Alert.alert(
-  //       'React Native Credentials: ' +
-  //         firstname +
-  //         ' ' +
-  //         ' ' +
-  //         lastname +
-  //         ' ' +
-  //         email +
-  //         ' ' +
-  //         password,
-  //     );
-  //   };
 
   return (
     //// SafeAreaView is used for fitting on iOS Devices ////
@@ -90,10 +84,10 @@ const styles = StyleSheet.create({
     height: 44,
     padding: 10,
     borderRadius: 10,
-    borderColor: "black",
-    borderStyle: "solid",
+    borderColor: 'black',
+    borderStyle: 'solid',
     borderWidth: 2,
-    backgroundColor:"pink",
+    backgroundColor: 'pink',
     marginBottom: 30,
   },
   logo: {

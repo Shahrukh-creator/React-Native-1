@@ -3,15 +3,25 @@
         "Abbottabad",
         "Allama",
         "Askari",
+        "boih",
+        "firestore",
         "getdata",
         "Gulberg",
+        "Hftp",
         "Khaadi",
         "limegreen",
+        "Mhdm",
         "Pakhtunkhwa",
+        "reactnativeapp",
+        "setauthenticated",
         "setemail",
         "setfirstname",
+        "setis",
         "setlastname",
-        "setpassword"
+        "setname",
+        "setpassword",
+        "usertemp",
+        "validatefirstname"
     ],
     "cSpell.ignoreWords": [
         "beacuse"

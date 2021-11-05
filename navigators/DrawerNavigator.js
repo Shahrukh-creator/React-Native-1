@@ -11,25 +11,38 @@ import ProfileScreen3 from '../screens/ProfileScreen3';
 import TabNavigator from './TabNavigator';
 
 import LogOut from '../screens/LogOut'
+import auth, {firebase} from '@react-native-firebase/auth';
 
 
 const Drawer = createDrawerNavigator();
 
-export default function DrawerNavigator() {
+export default function DrawerNavigator({navigation}) {
   return (
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={Home}    
       options={{
-          headerTitleAlign: 'center',
+         headerTitleAlign: 'center',
           title: 'Home', //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },
-         
           headerTintColor: '#fff', //Set Header text color
           headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
           },
+          // headerRight: () => (
+          //   <Button
+          //     onPress={() => 
+          //        firebase.auth()
+          //          .signOut()
+          //        .then(() => {
+          //            console.log('User signed out!');
+          //             navigation.navigate('AuthStack');
+          //                       })
+          //             }
+          //     title="LogOut"
+          //   />
+          // ),
         }}
         />
 
@@ -38,7 +51,8 @@ export default function DrawerNavigator() {
         ////only stack can update in stack.. */}
 
 
-        <Drawer.Screen name="ProfileScreen2" component={ProfileScreen2}  options={{
+        <Drawer.Screen name="ProfileScreen2" component={ProfileScreen2} 
+         options={{
           headerTitleAlign: 'center',
           title: 'ProfileScreen 2', //Set Header Title
           headerStyle: {
@@ -49,6 +63,7 @@ export default function DrawerNavigator() {
             fontWeight: 'bold', //Set Header text style
           },
         }}/>
+
         <Drawer.Screen name="ProfileScreen3" component={ProfileScreen3}  options={{
           headerTitleAlign: 'center',
           title: 'ProfileScreen 3', //Set Header Title
@@ -86,7 +101,8 @@ export default function DrawerNavigator() {
           },
         }}/> */}
 
-        <Drawer.Screen name="LogOut" component={LogOut}  options={{
+        <Drawer.Screen name="LogOut" component={LogOut}  
+        options={{
           headerTitleAlign: 'center',
           title: 'LogOut', //Set Header Title
           headerStyle: {
@@ -96,7 +112,9 @@ export default function DrawerNavigator() {
           headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
           },
-        }}/>
+        }}
+
+        />
     </Drawer.Navigator>
   );
 }
