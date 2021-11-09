@@ -1,50 +1,44 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Button, View, Text, StyleSheet} from 'react-native';
 import {Card} from 'react-native-elements';
+import { setLng, getLng } from '../helper/changeLng';
+import strings from '../localization/LocalizedStrings';
 
 function HomeScreen({navigation}) {
+
+  useEffect(() => {
+    selectedLng()
+  }, [])
+
+  const selectedLng = async () => {
+    const lngData = await getLng()
+    if (!!lngData) {
+      strings.setLanguage(lngData)
+    }
+    console.log("selected Language data==>>>", lngData);
+    // let str1 = strings.CASE_UPDATE;
+    // console.log(str1);
+  }
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Card>
-        <Card.Title>ProfileScreen</Card.Title>
+        <Card.Title>{strings.PROFILE_SCREEN_SHORT}</Card.Title>
         <Card.Divider />
 
         <Button
-          title="ProfileScreen"
+          title={strings.PROFILE_SCREEN_SHORT}
           onPress={() => navigation.navigate('ProfileStack')}
         />
       </Card>
       <View style={styles.buttonSpace}></View>
 
+
       <Card>
-        <Card.Title>ReduxScreen</Card.Title>
+        <Card.Title>{strings.MAPSCREEN_SHORT}</Card.Title>
         <Card.Divider />
 
         <Button
-          title="ReduxScreen"
-          onPress={() => navigation.navigate('ReduxScreen')}
-        />
-      </Card>
-      <View style={styles.buttonSpace}></View>
-
-      <Card>
-        <Card.Title>HomeScreen</Card.Title>
-        <Card.Divider />
-
-        <Button
-          title="HomeScreen"
-          onPress={() => navigation.navigate('Home')}
-        />
-      </Card>
-
-      <View style={styles.buttonSpace}></View>
-
-      <Card>
-        <Card.Title>MapScreen</Card.Title>
-        <Card.Divider />
-
-        <Button
-          title="MapScreen"
+          title={strings.MAPSCREEN_SHORT}
           onPress={() => navigation.navigate('MapView')}
         />
       </Card>

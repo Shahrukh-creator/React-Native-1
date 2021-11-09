@@ -11,6 +11,9 @@ import ProfileScreen3 from '../screens/ProfileScreen3';
 import TabNavigator from './TabNavigator';
 
 import LogOut from '../screens/LogOut'
+import Camera from '../screens/CameraScreens/Camera';
+import CallNumber from '../screens/CallNumberScreens/CallNumber';
+
 import auth, {firebase} from '@react-native-firebase/auth';
 
 
@@ -19,7 +22,7 @@ const Drawer = createDrawerNavigator();
 export default function DrawerNavigator({navigation}) {
   return (
     <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={Home}    
+      <Drawer.Screen name="Home" component={TabNavigator}    
       options={{
          headerTitleAlign: 'center',
           title: 'Home', //Set Header Title
@@ -76,8 +79,8 @@ export default function DrawerNavigator({navigation}) {
           },
         }}/>
 
-
-       <Drawer.Screen name="Contact" component={ContactScreen}  options={{
+        <Drawer.Screen name="Contact" component={CallNumber}  
+        options={{
           headerTitleAlign: 'center',
           title: 'Contact', //Set Header Title
           headerStyle: {
@@ -87,11 +90,14 @@ export default function DrawerNavigator({navigation}) {
           headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
           },
-        }}/>
-{/* 
-         <Drawer.Screen name="TabNavigator" component={TabNavigator}  options={{
+        }}
+
+        />
+
+         <Drawer.Screen name="Camera" component={Camera}  
+        options={{
           headerTitleAlign: 'center',
-          title: 'TabNavigator', //Set Header Title
+          title: 'Camera', //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },
@@ -99,7 +105,10 @@ export default function DrawerNavigator({navigation}) {
           headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
           },
-        }}/> */}
+        }}
+
+        />
+
 
         <Drawer.Screen name="LogOut" component={LogOut}  
         options={{

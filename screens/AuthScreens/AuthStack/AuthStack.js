@@ -29,7 +29,7 @@ export default function Auth({navigation}) {
   // }, [input])
   
   return (
-    <Stack.Navigator screenOptions = {{headerShown:false}} initialRouteName="AuthUserStack">
+    <Stack.Navigator screenOptions = {{headerShown:false}} initialRouteName="SignIn">
       <Stack.Screen
         name="SignIn"
         component={SignIn}
@@ -61,7 +61,7 @@ export default function Auth({navigation}) {
           },
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="AuthUserStack"
         component={AuthUserStack}
         options={{
@@ -76,7 +76,7 @@ export default function Auth({navigation}) {
             fontWeight: 'bold', //Set Header text style
           },
         }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }

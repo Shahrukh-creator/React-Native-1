@@ -9,6 +9,7 @@ import ProfileStackNavigator from './navigators/ProfileStackNavigator';
 import ReduxScreen from './screens/ReduxScreens/ReduxScreen';
 import MapView1 from './screens/MapViewScreen/MapView';
 
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 LogBox.ignoreLogs(['Reanimated 2']);
 

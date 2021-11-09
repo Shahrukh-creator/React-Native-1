@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Button,
@@ -9,13 +9,60 @@ import {
   Image,
   View,
   TouchableOpacity,
+  I18nManager
 } from 'react-native';
-import {useState} from 'react';
+import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import RNRestart from 'react-native-restart';
+
 import auth from '@react-native-firebase/auth';
+import strings from '../../localization/LocalizedStrings';
+import { setLng, getLng } from '../../helper/changeLng';
+
+
 
 export default function SignIn({navigation}) {
   const [email, setemail] = React.useState('');
   const [password, setpassword] = React.useState('');
+
+
+useEffect(() => {
+    selectedLng()
+  }, [])
+
+  const selectedLng = async () => {
+    const lngData = await getLng()
+    if (!!lngData) {
+      strings.setLanguage(lngData)
+    }
+    console.log("selected Language data==>>>", lngData);
+    // let str1 = strings.CASE_UPDATE;
+    // console.log(str1);
+  }
+
+  const onChangeLng = async (lng) => {
+    if (lng === 'en') {
+      await I18nManager.forceRTL(true)
+      setLng('en')
+      RNRestart.Restart()
+      return;
+    }
+    if (lng === 'ur') {
+      await I18nManager.forceRTL(true)
+      setLng('ur')
+      RNRestart.Restart()
+      return;
+    }
+    if (lng === 'ar') {
+      await I18nManager.forceRTL(true)
+      setLng('ar')
+      RNRestart.Restart()
+      return;
+    }
+  }
+
+
+
+
 
   const handleSubmitPress = () => {
     if (!email || !password) {
@@ -41,7 +88,36 @@ export default function SignIn({navigation}) {
   return (
     //// SafeAreaView is used for fitting on iOS Devices ////
     <SafeAreaView style={styles.container}>
+      
+      <View style={{ flexDirection: 'row', justifyContent: "space-around", paddingHorizontal:55}}>
+        {/* /// For English */}
+      <TouchableOpacity
+        style={styles.button}
+        activeOpacity={0.5}
+        onPress={() => onChangeLng('en')}>
+        <Text style={styles.buttonText}>English</Text>
+      </TouchableOpacity>
+
+       {/* /// For Hindi */}
+      <TouchableOpacity
+        style={styles.button}
+        activeOpacity={0.5}
+        onPress={() => onChangeLng('ur')}>
+        <Text style={styles.buttonText}>Urdu</Text>
+      </TouchableOpacity>
+
+       {/* /// For Arabic */}
+      <TouchableOpacity
+        style={styles.button}
+        activeOpacity={0.5}
+        onPress={() => onChangeLng('ar')}>
+        <Text style={styles.buttonText}>Arabic</Text>
+      </TouchableOpacity>
+
+      </View>
+
       <Image style={styles.logo} source={require('../../assets/img2.png')} />
+    
 
       <TextInput
         value={email}
@@ -60,14 +136,19 @@ export default function SignIn({navigation}) {
         style={styles.button}
         activeOpacity={0.5}
         onPress={handleSubmitPress}>
-        <Text style={styles.buttonText}>Sign In</Text>
+        <Text style={styles.buttonText}>{strings.SIGN_IN}</Text>
       </TouchableOpacity>
+
+      
 
       <Text
         style={styles.registerTextStyle}
         onPress={() => navigation.navigate('SignUp')}>
-        New Here ? Register
+        {strings.TEXT_1}
       </Text>
+
+      <Text> {strings.HOME} </Text>
+
     </SafeAreaView>
   );
 }

@@ -1,4 +1,3 @@
-import React, {Component} from 'react';
 import {
   Alert,
   Button,
@@ -10,23 +9,64 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useValidation } from 'react-native-form-validator';
+import { setLng, getLng } from '../../helper/changeLng';
+import strings from '../../localization/LocalizedStrings';
+
 
 export default function SignUp({navigation}) {
   const [firstname, setfirstname] = React.useState('');
   const [lastname, setlastname] = React.useState('');
   const [email, setemail] = React.useState('');
   const [password, setpassword] = React.useState('');
-  const [firstnameError, setfirstnameError] = useState(true);
-  const [lastnameError, setlastnameError] = useState(true);
-  const [emailError, setemailError] = useState(true);
-  const [passwordError, setpasswordError] = useState(true);
 
-  const handleSubmitPress = () => {
+
+  useEffect(() => {
+    selectedLng()
+  }, [])
+
+  const selectedLng = async () => {
+    const lngData = await getLng()
+    if (!!lngData) {
+      strings.setLanguage(lngData)
+    }
+    console.log("selected Language data==>>>", lngData);
+    // let str1 = strings.CASE_UPDATE;
+    // console.log(str1);
+  }
+
+  const handleSubmitPress = async () => {
     if (!email || !password || !firstname || !lastname) {
       alert('Details are Incomplete');
     } else {
+         /// Insert In Async Storage
+         try {
+          await AsyncStorage.setItem('email', email);
+          await AsyncStorage.setItem('password', password);
+          await AsyncStorage.setItem('firstname', firstname);
+          await AsyncStorage.setItem('lastname', lastname);
+         }
+         catch (e){
+          console.error(e);
+         }
+         /// Retrieve from Async Storage
+         try {
+         const Value1 = await AsyncStorage.getItem('email')
+         const Value2 = await AsyncStorage.getItem('password')
+         const Value3 = await AsyncStorage.getItem('firstname')
+         const Value4 = await AsyncStorage.getItem('lastname')
+         console.log(Value1);
+         console.log(Value2);
+         console.log(Value3);
+         console.log(Value4);
+         }  catch (e){
+          console.error(e);
+         }
+         
+
       auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
@@ -45,6 +85,9 @@ export default function SignUp({navigation}) {
 
           console.error(error);
         });
+       
+
+
 
       setfirstname('');
       setlastname('');
@@ -54,104 +97,99 @@ export default function SignUp({navigation}) {
   };
 
   
-  const validatefirstname = () =>  {
-    if (firstname.length > 3) {
-      setfirstnameError(false);
-      return;
-    }
-    setfirstnameError(true);
-    return;
-  }
+    const { validate, isFieldInError, getErrorsInField } =
+    useValidation({
+      state: { firstname, lastname, email, password },
+    });
 
-const validatelastname = () =>  {
-    if (lastname.length > 3) {
-      setlastnameError(false);
-      return;
-    }
-    setlastnameError(true);
-    return;
-  }
+    const _onPressButton = () => {
+    validate({
+      firstname: { minlength: 3, maxlength: 7, required: true },
+      lastname: { minlength: 3, maxlength: 7, required: true },
+      email: { email: true, required: true },
+      password: {  minlength: 3, maxlength: 15, required: true },
+    });
+  };
 
-  const validateEmail = () =>  {
-    let regexp = new RegExp(
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-    setemailError(!regexp.test(email));
-  }
-
-  const validatePassword = () =>  {
-    if (password.length > 6) {
-      setpasswordError(false);
-      return;
-    }
-    setpasswordError(true);
-    return;
-  }
+  function _combined() {
+     _onPressButton();
+    handleSubmitPress();
+  } 
 
   return (
     //// SafeAreaView is used for fitting on iOS Devices ////
     <SafeAreaView style={styles.container}>
       <Image style={styles.logo} source={require('../../assets/img2.png')} />
+
+      
       <TextInput
         value={firstname}
-        onChangeText={(text) => {
-            validatefirstname();
-             setfirstname(text);
-          }}
+        onChangeText={(text) => setfirstname(text)
+          }
         placeholder={'Firstname'}
         style={styles.input}
       />
-      {firstnameError ? (
-          <Text style={styles.error}>minimum length : 3</Text>
-        ) : null}
+      {isFieldInError('firstname') &&
+        getErrorsInField('firstname').map(errorMessage => (
+          <Text key={ Math.random().toString() } style = {{color:'red'}}>{errorMessage}</Text>
+        ))}
+     
       <TextInput
         value={lastname}
-        onChangeText={(text) => {
-            validatelastname();
-             setlastname(text);
-          }}
+        onChangeText={(text) =>
+             setlastname(text)
+          }
         placeholder={'Lastname'}
         style={styles.input}
       />
-      {lastnameError ? (
-          <Text style={styles.error}>minimum length : 3</Text>
-        ) : null}
+       {isFieldInError('lastname') &&
+        getErrorsInField('lastname').map(errorMessage => (
+          <Text key={ Math.random().toString() } style = {{color:'red'}}>{errorMessage}</Text>
+        ))}
+    
       <TextInput
         value={email}
-        onChangeText={(text) => {
-        validateEmail();
-        setemail(text);
-        }}
+        onChangeText={(text) => 
+        setemail(text)
+        }
         placeholder={'Email'}
         style={styles.input}
       />
-       {emailError ? <Text style={styles.error}>Invalid email</Text> : null}
+
+       {isFieldInError('email') &&
+        getErrorsInField('email').map(errorMessage => (
+          <Text key={ Math.random().toString()} style = {{color:'red'}}>{errorMessage}</Text>
+        ))}
+      
       <TextInput
         value={password}
         onChangeText={(text) =>
-        {
-          validatePassword();
-          setpassword(text);
-        }}
+
+         setpassword(text)
+        }
         placeholder={'Password'}
         secureTextEntry={true}
         style={styles.input}
       />
-      {passwordError ? (
-        <Text style={styles.error}>Minimum length is 6</Text>
-      ) : null}
+
+      {isFieldInError('password') &&
+        getErrorsInField('password').map(errorMessage => (
+          <Text key={ Math.random().toString() } style = {{color:'red'}}>{errorMessage}</Text>
+        ))}
+      
       <TouchableOpacity
         style={styles.button}
         activeOpacity={0.5}
-        onPress={handleSubmitPress}>
-        <Text style={styles.buttonText}>Sign Up</Text>
+        onPress={() => _combined()}>
+        <Text style={styles.buttonText}>{strings.SIGN_UP}</Text>
       </TouchableOpacity>
 
       <Text
         style={styles.registerTextStyle}
         onPress={() => navigation.navigate('SignIn')}>
-        Already Registered ?
+        {strings.TEXT_2}
       </Text>
+
     </SafeAreaView>
   );
 }
