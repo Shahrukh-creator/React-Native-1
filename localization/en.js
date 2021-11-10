@@ -13,6 +13,10 @@ export default {
   SIGN_IN:"Sign In",
   SIGN_UP: "Sign Up",
   TEXT_1:"New Here ? Register",
-  TEXT_2:"Already Registered ?"
+  TEXT_2:"Already Registered ?",
+  EMAIL:"email",
+  PASSWORD:"Password",
+  FIRSTNAME:"Firstname",
+  LASTNAME:"Lastname",
 
 };

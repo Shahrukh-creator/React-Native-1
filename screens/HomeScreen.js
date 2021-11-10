@@ -3,6 +3,7 @@ import {Button, View, Text, StyleSheet} from 'react-native';
 import {Card} from 'react-native-elements';
 import { setLng, getLng } from '../helper/changeLng';
 import strings from '../localization/LocalizedStrings';
+import CurrentUser from './AuthScreens/AuthUserStack/CurrentUser';
 
 function HomeScreen({navigation}) {
 
@@ -21,6 +22,7 @@ function HomeScreen({navigation}) {
   }
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    
       <Card>
         <Card.Title>{strings.PROFILE_SCREEN_SHORT}</Card.Title>
         <Card.Divider />

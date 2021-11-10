@@ -116,17 +116,21 @@ export default function SignUp({navigation}) {
     handleSubmitPress();
   } 
 
+   const BASE_PATH =
+    'https://carnbrae.com.au/wp-content/uploads/2021/05/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';
+
+
   return (
     //// SafeAreaView is used for fitting on iOS Devices ////
     <SafeAreaView style={styles.container}>
-      <Image style={styles.logo} source={require('../../assets/img2.png')} />
+     <Image source={{uri: BASE_PATH}} style={styles.sideMenuProfileIcon} />
 
       
       <TextInput
         value={firstname}
         onChangeText={(text) => setfirstname(text)
           }
-        placeholder={'Firstname'}
+        placeholder={`${strings.FIRSTNAME}`}
         style={styles.input}
       />
       {isFieldInError('firstname') &&
@@ -139,7 +143,7 @@ export default function SignUp({navigation}) {
         onChangeText={(text) =>
              setlastname(text)
           }
-        placeholder={'Lastname'}
+        placeholder={`${strings.LASTNAME}`}
         style={styles.input}
       />
        {isFieldInError('lastname') &&
@@ -152,7 +156,7 @@ export default function SignUp({navigation}) {
         onChangeText={(text) => 
         setemail(text)
         }
-        placeholder={'Email'}
+        placeholder={`${strings.EMAIL}`}
         style={styles.input}
       />
 
@@ -167,7 +171,7 @@ export default function SignUp({navigation}) {
 
          setpassword(text)
         }
-        placeholder={'Password'}
+        placeholder={`${strings.PASSWORD}`}
         secureTextEntry={true}
         style={styles.input}
       />
@@ -200,6 +204,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  sideMenuProfileIcon: {
+    resizeMode: 'center',
+    width: 170,
+    height: 170,
+    borderRadius: 100 / 2,
+    alignSelf: 'center',
   },
   input: {
     width: 300,
