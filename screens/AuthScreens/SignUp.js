@@ -11,6 +11,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+ const BASE_PATH =
+    'https://carnbrae.com.au/wp-content/uploads/2021/05/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';
+
 
 export default class SignUp extends React.Component {
 
@@ -101,7 +104,7 @@ render()
   return (
     //// SafeAreaView is used for fitting on iOS Devices ////
     <SafeAreaView style={styles.container}>
-      <Image style={styles.logo} source={require('../../assets/img2.png')} />
+      <Image source={{uri: BASE_PATH}} style={styles.sideMenuProfileIcon} />
       <TextInput
         value={this.state.firstname}
         onChangeText={(text) => { 
@@ -179,6 +182,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  sideMenuProfileIcon: {
+    resizeMode: 'center',
+    width: 120,
+    height: 120,
+    borderRadius: 100 / 2,
+    alignSelf: 'center',
   },
   input: {
     width: 300,

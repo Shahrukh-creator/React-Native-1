@@ -27,29 +27,6 @@ class HomeScreen extends React.Component {
          <View style={styles.buttonSpace}></View>
 
         <Card>
-          <Card.Title>ReduxScreen</Card.Title>
-          <Card.Divider />
-
-          <Button
-            title="ReduxScreen"
-            onPress={() => this.props.navigation.navigate('ReduxScreen')}
-          />
-        </Card>
-         <View style={styles.buttonSpace}></View>
-
-        <Card>
-          <Card.Title>HomeScreen</Card.Title>
-          <Card.Divider />
-
-          <Button
-            title="HomeScreen"
-            onPress={() => this.props.navigation.navigate('Home')}
-          />
-        </Card>
-
-        <View style={styles.buttonSpace}></View>
-
-        <Card>
           <Card.Title>MapScreen</Card.Title>
           <Card.Divider />
 
