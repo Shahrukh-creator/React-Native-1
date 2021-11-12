@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 // import Call API
 import call from 'react-native-phone-call';
 
@@ -27,6 +28,8 @@ const triggerCall = () => {
     // Make a call
     call(args).catch(console.error);
   };
+
+  const counter = useSelector(state => state.counter)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,6 +57,7 @@ const triggerCall = () => {
             Make a Call
           </Text>
         </TouchableOpacity>
+        <Text style={styles.text}>{counter}</Text>
       </View>
     </SafeAreaView>
   );
@@ -70,6 +74,11 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  text: {
+    fontSize: 100,
+    fontWeight: "bold",
+    color:'limegreen'
   },
   titleTextsmall: {
     marginVertical: 8,
