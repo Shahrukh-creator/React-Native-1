@@ -148,7 +148,7 @@ export default function DrawerNavigator({navigation}) {
         component={InterceptorNavigator}
         options={{
           headerTitleAlign: 'center',
-          title: "Interceptor", //Set Header Title
+          title: `${strings.INTERCEPTOR}`, //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },

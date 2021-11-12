@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {TouchableOpacity, Text, View, TextInput, Alert, StyleSheet} from 'react-native';
 import Loader from 'react-native-modal-loader';
 import axios from 'axios';
 
+import {setLng, getLng} from '../helper/changeLng';
 import strings from '../localization/LocalizedStrings';
 
 const InterceptorScreen = ({navigation}) => {
   const [username, onChangeUsername] = React.useState('');
   const [password, onChangePassword] = React.useState('');
   const [isLoading, onChangeLoading] = React.useState(false);
+
+
 
   axios.defaults.baseURL = 'http://truly-contacts.herokuapp.com/api';
 
@@ -35,12 +38,24 @@ const InterceptorScreen = ({navigation}) => {
       });
   };
 
+  useEffect(() => {
+    selectedLng();
+  }, []);
+
+  const selectedLng = async () => {
+    const lngData = await getLng();
+    if (!!lngData) {
+      strings.setLanguage(lngData);
+    }
+    console.log('selected Language data==>>>', lngData);
+  };
+
   return (
     <View style={styles.container}>
       <Loader loading={isLoading} color="#ff66be" />
 
       <TextInput
-          placeholder= "Username"
+          placeholder= {`${strings.USERNAME}`}
           onChangeText={text => onChangeUsername(text)}
           value={username}
         style={styles.input}
@@ -50,7 +65,7 @@ const InterceptorScreen = ({navigation}) => {
       <TextInput
         onChangeText={text => onChangePassword(text)}
         value={password}
-        placeholder="Password"
+        placeholder={`${strings.PASSWORD}`}
         secureTextEntry={true}
         style={styles.input}
       />
@@ -61,9 +76,11 @@ const InterceptorScreen = ({navigation}) => {
           navigation.navigate('InterceptorLogin');
         }}>
          <Text style={styles.buttonText}>
-          Sign In
+         {strings.SIGN_IN}
         </Text>
       </TouchableOpacity>
+
+       <View style={styles.buttonSpace}></View>
 
       <TouchableOpacity
         style={styles.button}
@@ -73,7 +90,7 @@ const InterceptorScreen = ({navigation}) => {
           CreateUserAccount(username, password);
         }}>
         <Text style={styles.buttonText}>
-          Sign Up
+         {strings.SIGN_UP}
         </Text>
       </TouchableOpacity>
     </View>
@@ -87,6 +104,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  buttonSpace: {
+    marginBottom: 20,
   },
   sideMenuProfileIcon: {
     resizeMode: 'center',

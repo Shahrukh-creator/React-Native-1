@@ -26,6 +26,10 @@ export default {
     PASSWORD:"كلمه السر",
     FIRSTNAME:"الاسم الأول",
     LASTNAME:"الكنية",
+    INTERCEPTOR:"لمعترض",
+    CREATE_ACTIVITY:"إنشاء نشاط",
+    USERNAME:"اسم المستخدم",
+    PHONE_NUMBER:"رقم الهاتف",
   
   };
   

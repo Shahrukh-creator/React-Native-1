@@ -1,8 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
 
-// import {Icon} from 'react-native-elements';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ReduxScreen from '../screens/ReduxScreens/ReduxScreen';
 import HomeScreen from '../screens/HomeScreen';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';

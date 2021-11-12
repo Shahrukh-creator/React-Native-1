@@ -18,5 +18,9 @@ export default {
   PASSWORD:"Password",
   FIRSTNAME:"Firstname",
   LASTNAME:"Lastname",
+  INTERCEPTOR:"Interceptor",
+  CREATE_ACTIVITY:"Create Activity", 
+  USERNAME:"Username",
+  PHONE_NUMBER:"Phone Number",
 
 };

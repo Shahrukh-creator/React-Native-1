@@ -27,4 +27,8 @@ export default {
   PASSWORD: 'پاس ورڈ',
   FIRSTNAME: 'پہلا نام',
   LASTNAME: 'آخری نام',
+  INTERCEPTOR:"انٹرسیپٹر",
+  CREATE_ACTIVITY:"سرگرمی بنائیں",
+  USERNAME:"صارف کا نام",
+  PHONE_NUMBER:"فون نمبر",
 };

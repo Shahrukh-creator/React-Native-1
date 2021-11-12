@@ -1,28 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import {TouchableOpacity, Text, View, TextInput, Alert, StyleSheet} from 'react-native';
-
+import React from 'react';
+import {TouchableOpacity, Text, View, TextInput, Alert} from 'react-native';
+import styles from '../../styles/Index';
 import Loader from 'react-native-modal-loader';
 import axios from 'axios';
-import strings from '../localization/LocalizedStrings';
-import {setLng, getLng} from '../helper/changeLng';
+import strings from '../../localization/LocalizedStrings';
 
 const InterceptorUploadContact = ({route}) => {
   const [firstName, onChangeFirstName] = React.useState('');
   const [phoneNumber, onChangePassword] = React.useState('');
   const [isLoading, onChangeLoading] = React.useState(false);
-
-
-useEffect(() => {
-    selectedLng();
-  }, []);
-
-  const selectedLng = async () => {
-    const lngData = await getLng();
-    if (!!lngData) {
-      strings.setLanguage(lngData);
-    }
-    console.log('selected Language data==>>>', lngData);
-  };
 
   const {token} = route.params;
 
@@ -58,19 +44,21 @@ useEffect(() => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.CommonStyles.container}>
       <Loader loading={isLoading} color="#ff66be" />
-   
+      <View style={styles.AuthStyles.inputView}>
         <TextInput
           editable
           maxLength={20}
-          placeholder={`${strings.FIRSTNAME}`}
+          placeholder={`${strings.FIRST_NAME}`}
           placeholderTextColor="#003f5c"
           onChangeText={text => onChangeFirstName(text)}
           value={firstName}
-          style={styles.input}
+          style={styles.AuthStyles.InputField}
         />
+      </View>
 
+      <View style={styles.AuthStyles.inputView}>
         <TextInput
           editable
           maxLength={20}
@@ -79,20 +67,27 @@ useEffect(() => {
           placeholderTextColor="#003f5c"
           onChangeText={text => onChangePassword(text)}
           value={phoneNumber}
-          style={styles.input}
+          style={styles.AuthStyles.InputField}
         />
-
+      </View>
 
       <TouchableOpacity
-        style={styles.button}
+        style={[
+          styles.AuthStyles.button,
+          {justifyContent: 'center', alignItems: 'center'},
+        ]}
         mode="contained"
-         activeOpacity={0.5}
+        disabled={phoneNumber === '' || firstName === ''}
         onPress={() => {
           CreateContact(firstName, phoneNumber);
         }}>
         <Text
-          style={styles.buttonText}>
-          {strings.CREATE_ACTIVITY}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 'bold',
+          }}>
+          {strings.CONTACT_CREATE}
         </Text>
       </TouchableOpacity>
     </View>
@@ -100,59 +95,3 @@ useEffect(() => {
 };
 
 export default InterceptorUploadContact;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-  },
-  sideMenuProfileIcon: {
-    resizeMode: 'center',
-    width: 120,
-    height: 120,
-    borderRadius: 100 / 2,
-    alignSelf: 'center',
-  },
-  input: {
-    width: 300,
-    height: 44,
-    padding: 10,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderStyle: 'solid',
-    borderWidth: 2,
-    backgroundColor: 'pink',
-    marginBottom: 30,
-  },
-  logo: {
-    width: '50%',
-    height: '30%',
-  },
-  registerTextStyle: {
-    color: 'blue',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 14,
-    alignSelf: 'center',
-    padding: 10,
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 5,
-    borderWidth: 2,
-    elevation: 5,
-    backgroundColor: 'black',
-  },
-  buttonText: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
-  },
-});

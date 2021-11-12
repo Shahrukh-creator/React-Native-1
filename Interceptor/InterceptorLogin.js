@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {TouchableOpacity, Text, View, TextInput, Alert, StyleSheet} from 'react-native';
 import Loader from 'react-native-modal-loader';
 import axios from 'axios';
 import strings from '../localization/LocalizedStrings';
+import {setLng, getLng} from '../helper/changeLng';
+
 
 const InterceptorLogin = ({navigation}) => {
   const [username, onChangeUsername] = React.useState('');
   const [password, onChangePassword] = React.useState('');
   const [isLoading, onChangeLoading] = React.useState(false);
 
+useEffect(() => {
+    selectedLng();
+  }, []);
+  
+  
+  const selectedLng = async () => {
+    const lngData = await getLng();
+    if (!!lngData) {
+      strings.setLanguage(lngData);
+    }
+    console.log('selected Language data==>>>', lngData);
+    // let str1 = strings.CASE_UPDATE;
+    // console.log(str1);
+  };
+
   axios.defaults.baseURL = 'http://truly-contacts.herokuapp.com/api';
 
   const LogInUser = async (username, password) => {
-    console.log(username, password);
+    console.log(username, password); 
+
     await axios
       .post('/auth/login', {
         username: username,
@@ -33,13 +51,16 @@ const InterceptorLogin = ({navigation}) => {
       });
   };
 
+   
+
+
   return (
     <View style={styles.container}>
       <Loader loading={isLoading} color="#ff66be" />
      
 
       <TextInput
-          placeholder= "Username"
+          placeholder= {`${strings.USERNAME}`}
           onChangeText={text => onChangeUsername(text)}
           value={username}
         style={styles.input}
@@ -49,22 +70,10 @@ const InterceptorLogin = ({navigation}) => {
       <TextInput
         value={password}
         onChangeText={text => onChangePassword(text)}
-        placeholder="Password"
+        placeholder={`${strings.PASSWORD}`}
         secureTextEntry={true}
         style={styles.input}
       />
-
-
-      {/* <TouchableOpacity
-        style={styles.button}
-        activeOpacity={0.5}
-        // disabled ={email === '' || password === ''}
-        onPress={() => _combined()}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity> */}
-
-
-
 
 
 
@@ -75,9 +84,11 @@ const InterceptorLogin = ({navigation}) => {
         }}
         activeOpacity={0.5}>
         <Text style={styles.buttonText}>
-          Sign Up
+           {strings.SIGN_UP}
         </Text>
       </TouchableOpacity>
+
+      <View style={styles.buttonSpace}></View>
 
       <TouchableOpacity
         style={styles.button}
@@ -89,7 +100,7 @@ const InterceptorLogin = ({navigation}) => {
         }}>
         <Text
           style={styles.buttonText}>
-          Sign In
+          {strings.SIGN_IN}
         </Text>
       </TouchableOpacity>
     </View>
@@ -105,6 +116,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  buttonSpace: {
+    marginBottom: 20,
   },
   sideMenuProfileIcon: {
     resizeMode: 'center',
