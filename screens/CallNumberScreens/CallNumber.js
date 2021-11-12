@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 // import Call API
 import call from 'react-native-phone-call';
+import { useSelector } from 'react-redux';
 
 export default function CallNumber() {
     const [inputValue, setInputValue] = useState('00000000000');
@@ -27,6 +28,9 @@ const triggerCall = () => {
     // Make a call
     call(args).catch(console.error);
   };
+
+  const counter = useSelector(state => state.counter)
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,6 +58,7 @@ const triggerCall = () => {
             Make a Call
           </Text>
         </TouchableOpacity>
+        <Text style={styles.text}>{counter}</Text>
       </View>
     </SafeAreaView>
   );
@@ -74,6 +79,11 @@ const styles = StyleSheet.create({
   titleTextsmall: {
     marginVertical: 8,
     fontSize: 16,
+  },
+  text: {
+    fontSize: 100,
+    fontWeight: "bold",
+    color:'limegreen'
   },
   buttonStyle: {
     justifyContent: 'center',

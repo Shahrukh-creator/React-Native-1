@@ -55,6 +55,18 @@ class HomeScreen extends React.Component {
         </Card>
 
         <View style={styles.buttonSpace}></View>
+
+        <Card>
+          <Card.Title>CrudScreen</Card.Title>
+          <Card.Divider />
+
+          <Button
+            title="CrudScreen"
+            onPress={() => this.props.navigation.navigate('CrudStack')}
+          />
+        </Card>
+
+        <View style={styles.buttonSpace}></View>
       </View>
     );
   }

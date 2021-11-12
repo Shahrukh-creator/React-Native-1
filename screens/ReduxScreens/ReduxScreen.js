@@ -1,62 +1,65 @@
-import React, { Component } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity
-} from "react-native";
-import { createStore } from 'redux'
-import ReducerApp from './Reducer'
-import { Provider } from 'react-redux'
-/**
- * Store - holds our state - THERE IS ONLY ONE STATE 
- * Action - State can be modified using actions - SIMPLE OBJECTS 
- * Dispatcher - Action needs to be sent by someone - known as dispatching an action
- * Reducer - receives the action and modifies the state to give us a new state 
- *  - pure functions 
- *  - only mandatory argument is the 'type' 
- * Subscriber - listens for state change to update the ui  
- */
-const initialState = {
-    counter: 0
-}
-/// action is dispatched into the reducer as a parameter to apply changes to state ///
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'INCREASE_COUNTER':
-            return { counter: state.counter + 1 }
-        case 'DECREASE_COUNTER':
-            return { counter: state.counter - 1 }
-        case 'RESET_COUNTER':
-            return { counter: 0 }
-    }
-    return state
-}
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 
-const store = createStore(reducer)
+import { Provider } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-class ReduxScreen extends Component {
+import store from './Store';
 
-    render() {
-        return (
-            // Calling Component is wrapped inside
-            ///  provider to provide easy access of store states 
-            /// to all  called multiple components   
-            <Provider store={store}> 
-                <ReducerApp />
-            </Provider>
-        );
-    }
+import { increment } from './Reducer';
+import { decrement } from './Reducer';
+import { reset } from './Reducer';
+
+
+const AppScreen = () => {
+  const dispatch = useDispatch()
+
+  const counter = useSelector(state => state.counter)
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{counter}</Text>
+      <View style={{ flexDirection: "row" }}>
+        <TouchableHighlight style={{ ...styles.button, backgroundColor: "red" }} onPress={() => dispatch(decrement())}>
+          <Text style={{fontSize:20, fontWeight: "bold"}}>-</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={{ ...styles.button, backgroundColor: "grey" }} onPress={() => dispatch(reset())}>
+          <Text>Reset</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={{ ...styles.button, backgroundColor: "blue" }} onPress={() => dispatch(increment())}>
+          <Text style={{fontSize:20, fontWeight: "bold"}}>+</Text>
+        </TouchableHighlight>
+      </View>
+    </View>
+  )
 }
 
-export default ReduxScreen
-
-// export default App;
+export default function ReduxScreen() {
+  return (
+    <Provider store={store}>
+        <AppScreen />
+    </Provider>
+  );
+}
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 100,
+    fontWeight: "bold",
+    color:'limegreen'
+  },
+  button: {
+    width: 100,
+    height: 50,
+    margin: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });

@@ -30,6 +30,7 @@ export default {
     CREATE_ACTIVITY:"إنشاء نشاط",
     USERNAME:"اسم المستخدم",
     PHONE_NUMBER:"رقم الهاتف",
+    CRUDSCREEN:"شاشة Crud"
   
   };
   

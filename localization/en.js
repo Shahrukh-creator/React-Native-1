@@ -22,5 +22,6 @@ export default {
   CREATE_ACTIVITY:"Create Activity", 
   USERNAME:"Username",
   PHONE_NUMBER:"Phone Number",
+  CRUDSCREEN:"Crud Screen"
 
 };

@@ -31,4 +31,5 @@ export default {
   CREATE_ACTIVITY:"سرگرمی بنائیں",
   USERNAME:"صارف کا نام",
   PHONE_NUMBER:"فون نمبر",
+  CRUDSCREEN:"کروڈ اسکرین"
 };
