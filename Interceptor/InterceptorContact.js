@@ -28,9 +28,6 @@ export default class InterceptorUploadContact extends React.Component {
     console.log('selected Language data==>>>', lngData);
   };
 
-
-  
-
  
 
    CreateContact = async (firstName, phoneNumber) => {

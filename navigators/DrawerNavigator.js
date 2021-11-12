@@ -13,11 +13,31 @@ import CustomSidebarMenu from '../screens/CustomSidebarMenu/CustomSidebar';
 import CallNumber from '../screens/CallNumberScreens/CallNumber';
 import Camera from '../screens/CameraScreens/Camera';
 import InterceptorNavigator from './InterceptorNavigator';
-
+import strings from '../localization/LocalizedStrings';
+import {setLng, getLng} from '../helper/changeLng';
 
 const Drawer = createDrawerNavigator();
 
 export default class DrawerNavigator extends React.Component {
+    
+    
+
+    
+  componentDidMount(){
+    this.selectedLng();
+  }
+
+   selectedLng = async () => {
+    const lngData = await getLng();
+    if (!!lngData) {
+      strings.setLanguage(lngData);
+    }
+    console.log('selected Language data==>>>', lngData);
+    // let str1 = strings.CASE_UPDATE;
+    // console.log(str1);
+  };
+
+    
     render()
     {
   return (
@@ -34,7 +54,7 @@ export default class DrawerNavigator extends React.Component {
         component={TabNavigator}
         options={{
           headerTitleAlign: 'center',
-          title: "Home", //Set Header Title
+          title: `${strings.HOME}`, //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },
@@ -60,7 +80,7 @@ export default class DrawerNavigator extends React.Component {
      
         <Drawer.Screen name="ProfileScreen2" component={ProfileScreen2}  options={{
           headerTitleAlign: 'center',
-          title: 'ProfileScreen 2', //Set Header Title
+          title: `${strings.PROFILE_SCREEN_2}`, //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },
@@ -72,7 +92,7 @@ export default class DrawerNavigator extends React.Component {
 
         <Drawer.Screen name="ProfileScreen3" component={ProfileScreen3}  options={{
           headerTitleAlign: 'center',
-          title: 'ProfileScreen 3', //Set Header Title
+          title: `${strings.PROFILE_SCREEN_3}`, //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },
@@ -87,7 +107,7 @@ export default class DrawerNavigator extends React.Component {
         component={Camera}
         options={{
           headerTitleAlign: 'center',
-          title: "Camera", //Set Header Title
+          title: `${strings.CAMERA}`, //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },
@@ -100,7 +120,7 @@ export default class DrawerNavigator extends React.Component {
 
        <Drawer.Screen name="Contact" component={CallNumber}  options={{
           headerTitleAlign: 'center',
-          title: 'Contact', //Set Header Title
+          title:`${strings.CONTACT}`, //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },
@@ -115,7 +135,7 @@ export default class DrawerNavigator extends React.Component {
         component={InterceptorNavigator}
         options={{
           headerTitleAlign: 'center',
-          title: "Interceptor", //Set Header Title
+          title: `${strings.INTERCEPTOR}`, //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },
@@ -130,7 +150,7 @@ export default class DrawerNavigator extends React.Component {
         <Drawer.Screen name="LogOut" component={LogOut}  options={{
           headerShown:false,
           headerTitleAlign: 'center',
-          title: 'LogOut', //Set Header Title
+          title: `${strings.LOGOUT}`, //Set Header Title
           headerStyle: {
             backgroundColor: '#307ecc', //Set Header color
           },

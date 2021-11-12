@@ -10,6 +10,9 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
+import strings from '../../localization/LocalizedStrings';
+import {setLng, getLng} from '../../helper/changeLng';
+
 
  const BASE_PATH =
     'https://carnbrae.com.au/wp-content/uploads/2021/05/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';
@@ -31,6 +34,22 @@ constructor()
       passwordError: true,
     };
   }
+
+  
+  componentDidMount(){
+    this.selectedLng();
+  }
+
+   selectedLng = async () => {
+    const lngData = await getLng();
+    if (!!lngData) {
+      strings.setLanguage(lngData);
+    }
+    console.log('selected Language data==>>>', lngData);
+    // let str1 = strings.CASE_UPDATE;
+    // console.log(str1);
+  };
+
   
     validatefirstname() {
     if (this.state.firstname.length > 3) {
@@ -111,7 +130,7 @@ render()
           this.validatefirstname();
           this.setState({firstname:text});
           }}
-        placeholder={'Firstname'}
+        placeholder={`${strings.FIRSTNAME}`}
         style={styles.input}
       />
       {this.state.firstnameError ? (
@@ -124,7 +143,7 @@ render()
           this.validatelastname();
           this.setState({lastname:text});
         }}
-        placeholder={'Lastname'}
+        placeholder={`${strings.LASTNAME}`}
         style={styles.input}
       />
       {this.state.lastnameError ? (
@@ -137,7 +156,7 @@ render()
           this.validateEmail();
           this.setState({email:text});
         }}
-        placeholder={'Email'}
+        placeholder={`${strings.EMAIL}`}
         style={styles.input}
       />
         {this.state.emailError ? (
@@ -151,7 +170,7 @@ render()
           this.validatePassword();
           this.setState({password:text});
         }}
-        placeholder={'Password'}
+        placeholder={`${strings.PASSWORD}`}
         secureTextEntry={true}
         style={styles.input}
       />
@@ -163,13 +182,13 @@ render()
         style={styles.button}
         activeOpacity={0.5}
         onPress={this.handleSubmitPress.bind(this)}>
-        <Text style={styles.buttonText}>Sign Up</Text>
+        <Text style={styles.buttonText}>{strings.SIGN_UP}</Text>
       </TouchableOpacity>
 
       <Text
         style={styles.registerTextStyle}
         onPress={() => this.props.navigation.navigate('SignIn')}>
-        Already Registered ?
+        {strings.TEXT_2}
       </Text>
     </SafeAreaView>
   );
