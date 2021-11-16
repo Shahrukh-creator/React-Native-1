@@ -7,7 +7,7 @@ import AuthStack from './screens/AuthScreens/AuthStack/AuthStack';
 import ProfileStackNavigator from './navigators/ProfileStackNavigator';
 import ReduxScreen from './screens/ReduxScreens/ReduxScreen';
 import MapView1 from './screens/MapViewScreen/MapView';
-
+import CrudStack from './screens/CRUD_Screen/CrudStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +30,12 @@ function App1() {
         <Stack.Screen
           name="ProfileStack"
           component={ProfileStackNavigator}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="CrudStack"
+          component={CrudStack}
           options={{headerShown: false}}
         />
 

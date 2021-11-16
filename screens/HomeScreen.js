@@ -4,6 +4,7 @@ import {Card} from 'react-native-elements';
 import { setLng, getLng } from '../helper/changeLng';
 import strings from '../localization/LocalizedStrings';
 import CurrentUser from './AuthScreens/AuthUserStack/CurrentUser';
+import CrudScreen from './CRUD_Screen/CrudScreen';
 
 function HomeScreen({navigation}) {
 
@@ -20,6 +21,7 @@ function HomeScreen({navigation}) {
     // let str1 = strings.CASE_UPDATE;
     // console.log(str1);
   }
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
     
@@ -43,6 +45,19 @@ function HomeScreen({navigation}) {
           title={strings.MAPSCREEN_SHORT}
           onPress={() => navigation.navigate('MapView')}
         />
+      </Card>
+
+       <View style={styles.buttonSpace}></View>
+
+
+      <Card>
+        <Card.Title>CrudScreen</Card.Title>
+        <Card.Divider />
+
+        <Button
+            title="CrudScreen"
+            onPress={() => navigation.navigate('CrudStack')}
+          />
       </Card>
 
       <View style={styles.buttonSpace}></View>
