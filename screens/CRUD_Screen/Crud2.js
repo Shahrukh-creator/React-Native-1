@@ -11,19 +11,16 @@ constructor()
       Updatedname: '',
       Updatedemail: '',
       Updatedcity: '',
+      data: [],
     };
     
   }
   componentDidMount()
   {
       this.saveData();
-      let code = this.props.route.params.code;
-        if(code == 1 )
-    {
+     
       this.displayData();
-    }
-    else
-    {}
+    
 
   }
 
@@ -53,7 +50,8 @@ constructor()
 
   displayData = async ()=>{  
     try{  
-      let user = await AsyncStorage.getItem('user');  
+      let user = await AsyncStorage.getItem('user');
+      this.setState({data:user}) 
       let parsed = JSON.parse(user);  
     //   alert(parsed.city + " " +parsed.name + " " + parsed.email);
       this.setState({Updatedname:parsed.name}) 
@@ -84,6 +82,8 @@ constructor()
 }
 
   render() {  
+
+   const {data} = this.state;
     return (  
       <View style={styles.container}>  
 
@@ -92,7 +92,7 @@ constructor()
                 <Card.Divider />
 
                 <Text>
-                  <Text style={styles.textSize}>Name:  {this.state.Updatedname} {"\n"}</Text>
+                  <Text style={styles.textSize}>Name:  {data} {"\n"}</Text>
                   
                   <Text style={styles.textSize}>Email:  {this.state.Updatedemail} {"\n"}</Text>
 

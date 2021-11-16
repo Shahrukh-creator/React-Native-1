@@ -4,6 +4,7 @@ import {Card} from 'react-native-elements';
 import strings from '../localization/LocalizedStrings';
 import {setLng, getLng} from '../helper/changeLng';
 
+
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
